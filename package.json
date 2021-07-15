@@ -27,7 +27,8 @@
     "e2e": "ng e2e",
     "semantic-release": "semantic-release",
     "postinstall": "ngcc",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "prepare":  "npm run build"
   },
   "private": false,
   "release": {
