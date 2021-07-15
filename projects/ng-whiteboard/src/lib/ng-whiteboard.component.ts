@@ -113,20 +113,16 @@ export class NgWhiteboardComponent implements AfterViewInit, OnDestroy {
   private saveSvg(name, format: 'png' | 'jpeg' | 'svg') {
     const svgString = this.saveAsSvg(this.selection.clone(true).node());
     if (format === 'svg') {
-      this.download('data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))), name);
+      this.save.emit('data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))));
     } else {
       this.svgString2Image(
         svgString,
         Number(this.selection.style('width').replace('px', '')),
         Number(this.selection.style('height').replace('px', '')),
         format,
-        (img) => {
-          this.download(img, name);
-        }
+        (img) => this.save.emit(img)
       );
     }
-
-    this.save.emit();
   }
 
   private undoDraw() {
@@ -290,14 +286,5 @@ export class NgWhiteboardComponent implements AfterViewInit, OnDestroy {
     svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
     svgString = svgString.replace(/NS\d+:href/g, 'xlink:href');
     return svgString;
-  }
-
-  private download(url: string, name: string): void {
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('visibility', 'hidden');
-    link.download = name || 'new white-board';
-    document.body.appendChild(link);
-    link.click();
   }
 }

@@ -27,8 +27,8 @@ export class AppComponent {
   onRedo() {
     this.toastr.success('Redo!');
   }
-  onSave() {
-    this.toastr.success('Save!');
+  onSave(url) {
+    this.toastr.success('Save!' + url);
   }
   onImageAded() {
     this.toastr.success('ImageAded!');

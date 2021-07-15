@@ -28,7 +28,7 @@
     "semantic-release": "semantic-release",
     "postinstall": "ngcc",
     "commit": "git-cz",
-    "prepare":  "npm run build"
+    "prepare": "npm run build"
   },
   "private": false,
   "release": {
